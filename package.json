@@ -2,9 +2,12 @@
   "name": "site",
   "version": "0.0.1",
   "description": "Site for startupstockphotos.com",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:server": "webpack --config webpack.server.config.js -p",
+    "watch:server": "webpack --config webpack.server.config.js -w",
+    "build:app": "webpack --config webpack.config.js -p",
+    "watch:app": "webpack --config webpack.config.js -w",
+    "dev": "concurrently 'npm run watch:app' 'npm run watch:server' 'nodemon server.js'"
   },
   "repository": {
     "type": "git",
@@ -12,8 +15,27 @@
   },
   "author": "estrattonbailey",
   "license": "BSD-3-Clause",
-  "bugs": {
-    "url": "https://github.com/startupstockphotos/site/issues"
+  "dependencies": {
+    "compression": "^1.7.1",
+    "express": "^4.16.2",
+    "node-fetch": "^1.7.3",
+    "picodom": "^1.0.2",
+    "picostate": "0.0.3",
+    "preact": "^8.2.7",
+    "preact-render-to-string": "^3.7.0",
+    "scouter": "0.0.9"
   },
-  "homepage": "https://github.com/startupstockphotos/site#readme"
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.38",
+    "@babel/core": "^7.0.0-beta.38",
+    "@babel/plugin-syntax-object-rest-spread": "^7.0.0-beta.38",
+    "@babel/preset-es2015": "^7.0.0-beta.38",
+    "@babel/preset-react": "^7.0.0-beta.38",
+    "babel-eslint": "^8.2.1",
+    "babel-loader": "^8.0.0-beta.0",
+    "concurrently": "^3.5.1",
+    "nodemon": "^1.14.11",
+    "standard-loader": "^6.0.1",
+    "webpack": "^3.10.0"
+  }
 }
