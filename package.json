@@ -3,11 +3,13 @@
   "version": "0.0.1",
   "description": "Site for startupstockphotos.com",
   "scripts": {
+    "build:css": "NODE_ENV=production postcss app/styles/main.css -o public/style.css",
+    "watch:css": "NODE_ENV=development postcss app/styles/main.css -w -o public/style.css",
     "build:server": "webpack --config webpack.server.config.js -p",
     "watch:server": "webpack --config webpack.server.config.js -w",
     "build:app": "webpack --config webpack.config.js -p",
     "watch:app": "webpack --config webpack.config.js -w",
-    "dev": "concurrently 'npm run watch:app' 'npm run watch:server' 'nodemon server.js'"
+    "dev": "NODE_ENV=development concurrently 'npm run watch:app' 'npm run watch:server' 'npm run watch:css' 'nodemon server.js'"
   },
   "repository": {
     "type": "git",
@@ -20,10 +22,11 @@
     "express": "^4.16.2",
     "node-fetch": "^1.7.3",
     "picodom": "^1.0.2",
-    "picostate": "0.0.3",
+    "picostate": "0.0.5",
     "preact": "^8.2.7",
     "preact-render-to-string": "^3.7.0",
-    "scouter": "0.0.9"
+    "scouter": "0.0.8",
+    "unfetch": "^3.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.38",
@@ -34,7 +37,16 @@
     "babel-eslint": "^8.2.1",
     "babel-loader": "^8.0.0-beta.0",
     "concurrently": "^3.5.1",
+    "cssnano": "^3.10.0",
     "nodemon": "^1.14.11",
+    "postcss": "^6.0.16",
+    "postcss-calc": "^6.0.1",
+    "postcss-cli": "^4.1.1",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-discard-comments": "^2.0.4",
+    "postcss-import": "^11.0.0",
+    "postcss-nested": "^3.0.0",
+    "postcss-reporter": "^5.0.0",
     "standard-loader": "^6.0.1",
     "webpack": "^3.10.0"
   }

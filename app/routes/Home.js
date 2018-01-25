@@ -1,19 +1,23 @@
-/** @jsx h */
-import { h } from 'preact'
+/** @jsx preact.h */
+import preact from 'preact'
 import { route } from 'scouter'
 import App from 'app/App.js'
-import Photos from 'components/Photos.js'
+import PhotoGrid from 'components/PhotoGrid.js'
 
-const path = '/'
+const path = ':query'
 
 function component (props) {
   return (
     <App>
-      <h1>Home</h1>
-
-      <Photos />
+      <PhotoGrid />
     </App>
   )
 }
 
-export default route({ path, component })
+const options = {
+  title: state => (state.query ? (
+    `${state.query} | `
+  ) : '') + 'Startup Stock Photos'
+}
+
+export default route({ path, component, options })

@@ -1,3 +1,5 @@
 import createStore from 'picostate'
 
-export default createStore({})
+export default createStore({
+  query: ''
+})

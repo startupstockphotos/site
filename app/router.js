@@ -1,11 +1,15 @@
-/** @jsx h */
-import { h } from 'preact'
+/** @jsx preact.h */
+import preact from 'preact'
 import { router, route } from 'scouter'
 
 import Home from 'routes/Home.js'
 import About from 'routes/About.js'
 
 export default router(
+  About,
   Home,
-  About
+  route({
+    path: '*',
+    component: props => <h1>404</h1>
+  })
 )

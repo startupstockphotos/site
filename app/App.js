@@ -1,15 +1,11 @@
-/** @jsx h */
-import { h } from 'preact'
-import Link from './components/Link.js'
+/** @jsx preact.h */
+import preact from 'preact'
+import Nav from './components/Nav.js'
 
 export default function App ({ children }) {
   return (
     <main>
-      <nav>
-        <Link href='/'>Home</Link>
-        <Link href='/about'>About</Link>
-        <Link href='/account/login'>Login</Link>
-      </nav>
+      <Nav />
       {children}
     </main>
   )

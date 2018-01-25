@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1086,6 +1086,41 @@ var preact = {
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _preact = __webpack_require__(0);
+
+var _store = _interopRequireDefault(__webpack_require__(4));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+var _default = function _default() {
+  var map = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function (state) {
+    return state;
+  };
+  return function (Comp) {
+    return function (props) {
+      return (0, _preact.h)(Comp, _extends({}, Object.assign({}, props, map(_store.default.state)), {
+        hydrate: _store.default.hydrate
+      }));
+    };
+  };
+};
+
+exports.default = _default;
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1093,7 +1128,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "route", function() { return route; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "use", function() { return use; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "router", function() { return router; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_nanoassert__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_nanoassert__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_nanoassert___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_nanoassert__);
 
 
@@ -1225,7 +1260,7 @@ function router() {
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1236,26 +1271,20 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = App;
 
-var _preact = __webpack_require__(0);
+var _preact = _interopRequireDefault(__webpack_require__(0));
 
-var _Link = _interopRequireDefault(__webpack_require__(8));
+var _Nav = _interopRequireDefault(__webpack_require__(10));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/** @jsx h */
+/** @jsx preact.h */
 function App(_ref) {
   var children = _ref.children;
-  return (0, _preact.h)("main", null, (0, _preact.h)("nav", null, (0, _preact.h)(_Link.default, {
-    href: "/"
-  }, "Home"), (0, _preact.h)(_Link.default, {
-    href: "/about"
-  }, "About"), (0, _preact.h)(_Link.default, {
-    href: "/account/login"
-  }, "Login")), children);
+  return _preact.default.h("main", null, _preact.default.h(_Nav.default, null), children);
 }
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1266,51 +1295,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _picostate = _interopRequireDefault(__webpack_require__(10));
+var _picostate = _interopRequireDefault(__webpack_require__(11));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _default = (0, _picostate.default)({});
+var _default = (0, _picostate.default)({
+  query: ''
+});
 
 exports.default = _default;
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _preact = __webpack_require__(0);
-
-var _router = _interopRequireDefault(__webpack_require__(5));
-
-var _store = _interopRequireDefault(__webpack_require__(3));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/** @jsx h */
-document.addEventListener('DOMContentLoaded', function (e) {
-  var root = document.body.children[0];
-
-  function update() {
-    var location = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : window.location.pathname;
-
-    _router.default.resolve(location).then(function (_ref) {
-      var Comp = _ref.component;
-      root = (0, _preact.render)((0, _preact.h)(Comp, null), document.body, root);
-    });
-  }
-
-  _store.default.hydrate(window.__hydrate__);
-
-  _store.default.listen(function (state) {
-    window.history.pushState({}, '', state.location);
-    update(state.location);
-  });
-
-  update();
-});
 
 /***/ }),
 /* 5 */
@@ -1322,25 +1315,115 @@ document.addEventListener('DOMContentLoaded', function (e) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = Outer;
 
-var _preact = __webpack_require__(0);
-
-var _scouter = __webpack_require__(1);
-
-var _Home = _interopRequireDefault(__webpack_require__(7));
-
-var _About = _interopRequireDefault(__webpack_require__(11));
+var _preact = _interopRequireDefault(__webpack_require__(0));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/** @jsx h */
-var _default = (0, _scouter.router)(_Home.default, _About.default);
+/** @jsx preact.h */
+function Outer(_ref) {
+  var children = _ref.children;
+  return _preact.default.h("div", {
+    className: "outer rel"
+  }, children);
+}
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _preact = _interopRequireDefault(__webpack_require__(0));
+
+var _router = _interopRequireDefault(__webpack_require__(7));
+
+var _store = _interopRequireDefault(__webpack_require__(4));
+
+var _util = __webpack_require__(19);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** @jsx preact.h */
+var mounted = false;
+document.addEventListener('DOMContentLoaded', function (e) {
+  var root = document.body.children[0];
+
+  function rerender() {
+    var location = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : window.location.pathname;
+
+    _router.default.resolve(location).then(function (_ref) {
+      var Comp = _ref.component,
+          params = _ref.params,
+          options = _ref.options;
+
+      if (!mounted) {
+        if (params.query) {
+          _store.default.hydrate({
+            query: params.query
+          });
+        }
+
+        mounted = true;
+      }
+
+      if (options.title) {
+        document.title = options.title(_store.default.state);
+      }
+
+      root = _preact.default.render(_preact.default.h(Comp, null), document.body, root);
+    });
+  }
+
+  _store.default.hydrate(Object.assign(window.__hydrate__, {
+    location: (0, _util.cleanLocation)(window.location.href)
+  }));
+
+  _store.default.listen(function (state) {
+    var path = state.location || '/';
+    window.history.pushState({}, '', path);
+    rerender(path);
+  });
+
+  rerender();
+});
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _preact = _interopRequireDefault(__webpack_require__(0));
+
+var _scouter = __webpack_require__(2);
+
+var _Home = _interopRequireDefault(__webpack_require__(9));
+
+var _About = _interopRequireDefault(__webpack_require__(18));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** @jsx preact.h */
+var _default = (0, _scouter.router)(_About.default, _Home.default, (0, _scouter.route)({
+  path: '*',
+  component: function component(props) {
+    return _preact.default.h("h1", null, "404");
+  }
+}));
 
 exports.default = _default;
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports) {
 
 assert.notEqual = notEqual
@@ -1368,88 +1451,6 @@ function assert (t, m) {
 
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _preact = __webpack_require__(0);
-
-var _scouter = __webpack_require__(1);
-
-var _App = _interopRequireDefault(__webpack_require__(2));
-
-var _Photos = _interopRequireDefault(__webpack_require__(12));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/** @jsx h */
-var path = '/';
-
-function component(props) {
-  return (0, _preact.h)(_App.default, null, (0, _preact.h)("h1", null, "Home"), (0, _preact.h)(_Photos.default, null));
-}
-
-var _default = (0, _scouter.route)({
-  path: path,
-  component: component
-});
-
-exports.default = _default;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _preact = __webpack_require__(0);
-
-var _connect = _interopRequireDefault(__webpack_require__(9));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-var _default = (0, _connect.default)(function (state) {
-  return {
-    location: state.location
-  };
-})(function Link(_ref) {
-  var href = _ref.href,
-      children = _ref.children,
-      hydrate = _ref.hydrate,
-      props = _objectWithoutProperties(_ref, ["href", "children", "hydrate"]);
-
-  return (0, _preact.h)("a", _extends({
-    href: href
-  }, props, {
-    onClick: function onClick(e) {
-      e.preventDefault();
-      hydrate({
-        location: href
-      })();
-    }
-  }), children);
-});
-
-exports.default = _default;
-
-/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1461,31 +1462,102 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _preact = __webpack_require__(0);
+var _preact = _interopRequireDefault(__webpack_require__(0));
 
-var _store = _interopRequireDefault(__webpack_require__(3));
+var _scouter = __webpack_require__(2);
+
+var _App = _interopRequireDefault(__webpack_require__(3));
+
+var _PhotoGrid = _interopRequireDefault(__webpack_require__(16));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+/** @jsx preact.h */
+var path = ':query';
 
-var _default = function _default() {
-  var map = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function (state) {
-    return state;
-  };
-  return function (Comp) {
-    return function (props) {
-      return (0, _preact.h)(Comp, _extends({}, Object.assign({}, props, map(_store.default.state)), {
-        hydrate: _store.default.hydrate
-      }));
-    };
-  };
+function component(props) {
+  return _preact.default.h(_App.default, null, _preact.default.h(_PhotoGrid.default, null));
+}
+
+var options = {
+  title: function title(state) {
+    return (state.query ? "".concat(state.query, " | ") : '') + 'Startup Stock Photos';
+  }
 };
+
+var _default = (0, _scouter.route)({
+  path: path,
+  component: component,
+  options: options
+});
 
 exports.default = _default;
 
 /***/ }),
 /* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _preact = _interopRequireDefault(__webpack_require__(0));
+
+var _connect = _interopRequireDefault(__webpack_require__(1));
+
+var _Outer = _interopRequireDefault(__webpack_require__(5));
+
+var _Logo = _interopRequireDefault(__webpack_require__(12));
+
+var _Link = _interopRequireDefault(__webpack_require__(13));
+
+var _SearchBar = _interopRequireDefault(__webpack_require__(14));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** @jsx preact.h */
+var _default = (0, _connect.default)(function (state) {
+  return {
+    location: state.location
+  };
+})(function Nav(_ref) {
+  var location = _ref.location,
+      hydrate = _ref.hydrate;
+  return _preact.default.h("span", null, _preact.default.h("header", {
+    className: "nav fix top left right x z1"
+  }, _preact.default.h("div", {
+    className: "nav__inner"
+  }, _preact.default.h(_Outer.default, null, _preact.default.h("div", {
+    className: "f jcb aic"
+  }, _preact.default.h(_Link.default, {
+    className: "nav__logo",
+    href: "/"
+  }, _preact.default.h(_Logo.default, null)), _preact.default.h("nav", {
+    className: "f aic jce"
+  }, _preact.default.h(_Link.default, {
+    href: "/donate",
+    className: "caps h6",
+    style: {
+      marginRight: '2em'
+    }
+  }, "Donate"), _preact.default.h(_Link.default, {
+    href: "/about",
+    className: "caps h6"
+  }, "About"))))), _preact.default.h("div", {
+    className: "nav__search"
+  }, _preact.default.h(_Outer.default, null, _preact.default.h(_SearchBar.default, null)))), _preact.default.h("div", {
+    className: "header-spacer"
+  }));
+});
+
+exports.default = _default;
+
+/***/ }),
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1511,6 +1583,9 @@ function createStore(initialState) {
         listen: function listen(fn) {
             handlers.push(fn);
             return function () { return handlers.slice(handlers.indexOf(fn), 1); };
+        },
+        reset: function reset() {
+            state = initialState;
         }
     };
 }
@@ -1518,40 +1593,6 @@ function createStore(initialState) {
 /* harmony default export */ __webpack_exports__["default"] = (createStore);
 //# sourceMappingURL=picostate.es.js.map
 
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _preact = __webpack_require__(0);
-
-var _scouter = __webpack_require__(1);
-
-var _App = _interopRequireDefault(__webpack_require__(2));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/** @jsx h */
-var path = '/about';
-
-function component(props) {
-  return (0, _preact.h)(_App.default, null, (0, _preact.h)("h1", null, "About"));
-}
-
-var _default = (0, _scouter.route)({
-  path: path,
-  component: component
-});
-
-exports.default = _default;
 
 /***/ }),
 /* 12 */
@@ -1563,26 +1604,327 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = Logo;
 
-var _preact = __webpack_require__(0);
-
-var _connect = _interopRequireDefault(__webpack_require__(9));
+var _preact = _interopRequireDefault(__webpack_require__(0));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/** @jsx h */
+/** @jsx preact.h */
+function Logo(props) {
+  return _preact.default.h("svg", {
+    className: "logo",
+    width: "26",
+    height: "12",
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 26 12",
+    style: {
+      height: '1em',
+      width: '2.1em'
+    }
+  }, _preact.default.h("path", {
+    d: "M6.5526 3.3229c-.075-.531-.3051-.9483-.6907-1.2518-.3855-.3034-.9002-.4552-1.544-.4552-.6664 0-1.1923.1499-1.5778.4495-.3856.2997-.5784.6923-.5784 1.1778 0 .4211.176.7663.5278 1.0356.3519.2693.8853.5102 1.6003.7226l.8703.256c1.0855.3263 1.9071.7435 2.4649 1.2518.5577.5083.8366 1.1892.8366 2.0427 0 .6525-.1572 1.2385-.4716 1.7582-.3145.5197-.7824.9312-1.4038 1.2347C5.965 11.8483 5.1956 12 4.2785 12c-.7786 0-1.486-.1356-2.1224-.4068-.6363-.2712-1.1473-.6686-1.5328-1.192C.2377 9.8776.0299 9.2422 0 8.495h1.8417c.0599.6107.3172 1.0773.772 1.3997.4548.3225 1.0378.4837 1.749.4837.7 0 1.254-.1679 1.662-.5036.408-.3357.612-.75.612-1.2432 0-.44-.175-.806-.525-1.0982-.35-.292-.931-.5614-1.7433-.808l-.9995-.2901C2.4294 6.1583 1.6873 5.78 1.1426 5.3.598 4.8203.3256 4.1404.3256 3.2603c0-.6562.1779-1.229.5335-1.7183.3556-.4894.8394-.8687 1.4514-1.138C2.9225.1347 3.6104 0 4.374 0c.771 0 1.4514.1403 2.041.421.5896.2808 1.0556.6705 1.398 1.1693.3426.4988.525 1.0764.5475 1.7326h-1.808zm9.7999 0c-.0749-.531-.3051-.9483-.6907-1.2518-.3855-.3034-.9002-.4552-1.544-.4552-.6663 0-1.1923.1499-1.5778.4495-.3856.2997-.5784.6923-.5784 1.1778 0 .4211.176.7663.5278 1.0356.352.2693.8853.5102 1.6003.7226l.8703.256c1.0855.3263 1.9072.7435 2.465 1.2518.5577.5083.8365 1.1892.8365 2.0427 0 .6525-.1572 1.2385-.4716 1.7582-.3145.5197-.7824.9312-1.4037 1.2347-.6214.3035-1.3907.4552-2.3078.4552-.7785 0-1.486-.1356-2.1224-.4068-.6363-.2712-1.1473-.6686-1.5328-1.192-.3856-.5235-.5933-1.1589-.6233-1.9062h1.8417c.0599.6107.3172 1.0773.772 1.3997.4548.3225 1.0379.4837 1.749.4837.7 0 1.254-.1679 1.662-.5036.408-.3357.612-.75.612-1.2432 0-.44-.1749-.806-.5249-1.0982-.35-.292-.9311-.5614-1.7434-.808l-.9995-.2901c-.9395-.277-1.6816-.6553-2.2263-1.1352-.5446-.4798-.817-1.1597-.817-2.0398 0-.6562.1779-1.229.5335-1.7183.3556-.4894.8394-.8687 1.4514-1.138C12.7224.1347 13.4103 0 14.174 0c.7711 0 1.4514.1403 2.041.421.5896.2808 1.0556.6705 1.3981 1.1693.3425.4988.525 1.0764.5475 1.7326h-1.808zm4.7297 8.6487c-.3145 0-.583-.1138-.8058-.3414-.2227-.2276-.334-.5026-.334-.825 0-.3225.1122-.5937.3368-.8137.2246-.22.4923-.33.803-.33.3181 0 .5886.1119.8113.3357s.3341.493.3341.808c0 .3224-.1114.5974-.334.825-.2228.2276-.4933.3414-.8114.3414zm2.1029-6.682h-1.2278v2.7463h-1.7369V.2673h2.9647C24.9818.2673 26 1.3597 26 2.8467c0 1.4718-1.0182 2.4428-2.815 2.4428zm-1.2278-3.5657V3.848h1.2278c.7786-.0152 1.078-.4855 1.078-1.0773 0-.5614-.2994-1.062-1.078-1.047h-1.2278z",
+    fill: "currentColor",
+    fillRule: "evenodd"
+  }));
+}
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _preact = _interopRequireDefault(__webpack_require__(0));
+
+var _connect = _interopRequireDefault(__webpack_require__(1));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+var _default = (0, _connect.default)(function (state) {
+  return {
+    location: state.location
+  };
+})(function Link(_ref) {
+  var href = _ref.href,
+      children = _ref.children,
+      hydrate = _ref.hydrate,
+      props = _objectWithoutProperties(_ref, ["href", "children", "hydrate"]);
+
+  return _preact.default.h("a", _extends({
+    href: href
+  }, props, {
+    onClick: function onClick(e) {
+      e.preventDefault();
+      hydrate({
+        location: href
+      })();
+    }
+  }), children);
+});
+
+exports.default = _default;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _preact = _interopRequireDefault(__webpack_require__(0));
+
+var _connect = _interopRequireDefault(__webpack_require__(1));
+
+var _unfetch = _interopRequireDefault(__webpack_require__(15));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** @jsx preact.h */
+var timeout;
+
+var _default = (0, _connect.default)(function (state) {
+  return {
+    query: state.query,
+    photos: state.photos
+  };
+})(function (_ref) {
+  var photos = _ref.photos,
+      query = _ref.query,
+      hydrate = _ref.hydrate;
+  return _preact.default.h("div", {
+    className: "search f aic jcb"
+  }, _preact.default.h("input", {
+    type: "search",
+    value: query,
+    placeholder: "Type something",
+    onKeyup: function onKeyup(e) {
+      var val = e.target.value;
+      hydrate({
+        query: val,
+        location: val
+      });
+      timeout && clearTimeout(timeout);
+      timeout = setTimeout(function () {
+        (0, _unfetch.default)("http://localhost:3001/photos?q=".concat(val)).then(function (res) {
+          return res.json();
+        }).then(function (photos) {
+          hydrate({
+            photos: photos
+          })();
+        });
+      }, 500);
+    }
+  }), _preact.default.h("p", {
+    className: "cw2 my0"
+  }, photos.length, " photos"));
+});
+
+exports.default = _default;
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+var index = typeof fetch=='function' ? fetch.bind() : function(url, options) {
+	options = options || {};
+	return new Promise( function (resolve, reject) {
+		var request = new XMLHttpRequest();
+
+		request.open(options.method || 'get', url);
+
+		for (var i in options.headers) {
+			request.setRequestHeader(i, options.headers[i]);
+		}
+
+		request.withCredentials = options.credentials=='include';
+
+		request.onload = function () {
+			resolve(response());
+		};
+
+		request.onerror = reject;
+
+		request.send(options.body);
+
+		function response() {
+			var keys = [],
+				all = [],
+				headers = {},
+				header;
+
+			request.getAllResponseHeaders().replace(/^(.*?):\s*([\s\S]*?)$/gm, function (m, key, value) {
+				keys.push(key = key.toLowerCase());
+				all.push([key, value]);
+				header = headers[key];
+				headers[key] = header ? (header + "," + value) : value;
+			});
+
+			return {
+				ok: (request.status/200|0) == 1,		// 200-299
+				status: request.status,
+				statusText: request.statusText,
+				url: request.responseURL,
+				clone: response,
+				text: function () { return Promise.resolve(request.responseText); },
+				json: function () { return Promise.resolve(request.responseText).then(JSON.parse); },
+				blob: function () { return Promise.resolve(new Blob([request.response])); },
+				headers: {
+					keys: function () { return keys; },
+					entries: function () { return all; },
+					get: function (n) { return headers[n.toLowerCase()]; },
+					has: function (n) { return n.toLowerCase() in headers; }
+				}
+			};
+		}
+	});
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (index);
+//# sourceMappingURL=unfetch.es.js.map
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _preact = _interopRequireDefault(__webpack_require__(0));
+
+var _connect = _interopRequireDefault(__webpack_require__(1));
+
+var _Outer = _interopRequireDefault(__webpack_require__(5));
+
+var _PhotoCard = _interopRequireDefault(__webpack_require__(17));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** @jsx preact.h */
 var _default = (0, _connect.default)(function (state) {
   return {
     photos: state.photos
   };
 })(function (props) {
-  return (0, _preact.h)("ul", null, props.photos.map(function (p) {
-    return (0, _preact.h)("li", null, p.id);
-  }));
+  return _preact.default.h(_Outer.default, null, _preact.default.h("ul", {
+    className: "photo-grid f aic fw"
+  }, props.photos.map(function (p) {
+    return _preact.default.h("li", {
+      className: "photo-grid__photo"
+    }, _preact.default.h(_PhotoCard.default, {
+      photo: p
+    }));
+  })));
 });
 
 exports.default = _default;
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = PhotoCard;
+
+var _preact = _interopRequireDefault(__webpack_require__(0));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** @jsx preact.h */
+function PhotoCard(_ref) {
+  var photo = _ref.photo;
+  return _preact.default.h("figure", {
+    className: "photo-card"
+  }, _preact.default.h("div", {
+    className: "photo-card__img rel"
+  }, _preact.default.h("img", {
+    src: photo.file.url + '?fm=jpg&fl=progressive&w=800',
+    className: "x y abs fill"
+  })));
+}
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _preact = _interopRequireDefault(__webpack_require__(0));
+
+var _scouter = __webpack_require__(2);
+
+var _App = _interopRequireDefault(__webpack_require__(3));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** @jsx preact.h */
+var path = '/about';
+
+function component(props) {
+  return _preact.default.h(_App.default, null, _preact.default.h("h1", null, "About"));
+}
+
+var _default = (0, _scouter.route)({
+  path: path,
+  component: component
+});
+
+exports.default = _default;
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.joinRoute = joinRoute;
+exports.cleanLocation = cleanLocation;
+
+function joinRoute(a, b) {
+  return (a + b).replace('//', '/');
+}
+
+function cleanLocation(location) {
+  return location.replace(window.location.origin, '');
+}
 
 /***/ })
 /******/ ]);

@@ -1,0 +1,22 @@
+.photo-grid {
+  margin-top: 0.75em;
+  margin-left: -0.375em;
+  margin-right: -0.375em;
+  @media (min-width: 44em) {
+    margin-top: 1.5em;
+    margin-left: -0.75em;
+    margin-right: -0.75em;
+  }
+}
+.photo-grid__photo {
+  padding-left: 0.375em;
+  padding-right: 0.375em;
+  margin-bottom: 0.75em;
+  width: 50%;
+  @media (min-width: 44em) {
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    margin-bottom: 1.5em;
+    width: 33.333333%;
+  }
+}

@@ -1,23 +1,40 @@
-/** @jsx h */
-import { h, render } from 'preact'
+/** @jsx preact.h */
+import preact from 'preact'
 import router from './router.js'
 import store from 'state/store.js'
+import { cleanLocation } from 'app/util.js'
+
+let mounted = false
 
 document.addEventListener('DOMContentLoaded', e => {
   let root = document.body.children[0]
 
-  function update (location = window.location.pathname) {
-    router.resolve(location).then(({ component: Comp }) => {
-      root = render(<Comp />, document.body, root)
+  function rerender (location = window.location.pathname) {
+    router.resolve(location).then(({ component: Comp, params, options }) => {
+      if (!mounted) {
+        if (params.query) {
+          store.hydrate({ query: params.query })
+        }
+        mounted = true
+      }
+
+      if (options.title) {
+        document.title = options.title(store.state)
+      }
+
+      root = preact.render(<Comp />, document.body, root)
     })
   }
 
-  store.hydrate(window.__hydrate__)
+  store.hydrate(Object.assign(window.__hydrate__, {
+    location: cleanLocation(window.location.href)
+  }))
 
   store.listen(state => {
-    window.history.pushState({}, '', state.location)
-    update(state.location)
+    const path = state.location || '/'
+    window.history.pushState({}, '', path)
+    rerender(path)
   })
 
-  update()
+  rerender()
 })

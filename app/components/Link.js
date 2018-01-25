@@ -1,5 +1,5 @@
-/** @jsx h */
-import { h } from 'preact'
+/** @jsx preact.h */
+import preact from 'preact'
 import connect from 'state/connect'
 
 export default connect(state => ({

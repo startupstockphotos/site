@@ -1,0 +1,20 @@
+:root {
+  --cb0: #000;
+  --cb1: #333;
+  --cw0: #fff;
+  --cw1: #eee;
+  --cw2: #aaa;
+}
+
+.cb0 {
+  color: var(--cb0)
+}
+.cb1 {
+  color: var(--cb1)
+}
+.cw1 {
+  color: var(--cw1)
+}
+.cw2 {
+  color: var(--cw2)
+}

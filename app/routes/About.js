@@ -1,5 +1,5 @@
-/** @jsx h */
-import { h } from 'preact'
+/** @jsx preact.h */
+import preact from 'preact'
 import { route } from 'scouter'
 import App from 'app/App.js'
 
