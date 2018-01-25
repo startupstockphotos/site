@@ -1721,7 +1721,7 @@ var _default = (0, _connect.default)(function (state) {
       });
       timeout && clearTimeout(timeout);
       timeout = setTimeout(function () {
-        (0, _unfetch.default)("http://localhost:3001/photos?q=".concat(val)).then(function (res) {
+        (0, _unfetch.default)("".concat(window.__api__, "/photos?q=").concat(val)).then(function (res) {
           return res.json();
         }).then(function (photos) {
           hydrate({

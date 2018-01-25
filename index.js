@@ -8,7 +8,8 @@ import router from 'app/router.js'
 import store from 'state/store.js'
 import fetch from 'node-fetch'
 
-const PROD = process.env.NODE_ENV === 'production'
+const PROD = !!process.env.NOW
+const ENDPOINT = PROD ? 'https://ssp-api.now.sh' : 'http://localhost:3001'
 
 const app = express()
 app.use(compression())
@@ -17,19 +18,13 @@ app.use(express.static('./public'))
 let cache
 function getPhotos (query) {
   if (query) {
-    return fetch(PROD ? (
-      `https://ssp-api.now.sh/photos?q=${query}`
-    ) : (
-      `http://localhost:3001/photos?q=${query}`
-    )).then(res => res.json())
+    return fetch(`${ENDPOINT}/photos?q=${query}`)
+      .then(res => res.json())
   }
   if (!cache) {
     cache = null
-    cache = fetch(PROD ? (
-      'https://ssp-api.now.sh/photos'
-    ) : (
-      'http://localhost:3001/photos'
-    )).then(res => res.json())
+    cache = fetch(`${ENDPOINT}/photos`)
+      .then(res => res.json())
   }
   return cache
 }
@@ -46,6 +41,7 @@ app.get('*', (req, res) => {
             <script src='/index.js' defer></script>
             <link rel='stylesheet' href='/style.css'/>
             <script>window.__hydrate__ = ${JSON.stringify(store.state)}</script>
+            <script>window.__api__ = "${ENDPOINT}"</script>
           </head>
           <body>
             ${render(<Comp />)}
