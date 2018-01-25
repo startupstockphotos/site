@@ -8,7 +8,7 @@ import router from 'app/router.js'
 import store from 'state/store.js'
 import fetch from 'node-fetch'
 
-const PROD = !!process.env.NOW
+const PROD = process.env.NODE_ENV === 'production'
 const ENDPOINT = PROD ? 'https://ssp-api.now.sh' : 'http://localhost:3001'
 
 const app = express()

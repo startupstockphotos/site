@@ -1864,7 +1864,10 @@ function PhotoCard(_ref) {
   return _preact.default.h("figure", {
     className: "photo-card"
   }, _preact.default.h("div", {
-    className: "photo-card__img rel"
+    className: "photo-card__img rel",
+    style: {
+      backgroundColor: "#".concat(photo.color)
+    }
   }, _preact.default.h("img", {
     src: photo.file.url + '?fm=jpg&fl=progressive&w=800',
     className: "x y abs fill"
