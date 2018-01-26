@@ -1,6 +1,7 @@
 {
   plugins: [
-    '@babel/plugin-syntax-object-rest-spread'
+    '@babel/plugin-syntax-object-rest-spread',
+    '@babel/plugin-proposal-class-properties'
   ],
   presets: [
     '@babel/preset-es2015',
