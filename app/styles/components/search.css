@@ -1,6 +1,12 @@
 .search {
+  transition-property: transform, opacity;
+  transition-duration: var(--speed);
+  transition-timing-function: var(--ease);
+  width: 100%;
+
   input {
     padding: 0.75em 0;
+    width: 100%;
 
     &::placeholder {
       opacity: 1;

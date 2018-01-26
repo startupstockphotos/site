@@ -4,6 +4,9 @@
   --cw0: #fff;
   --cw1: #eee;
   --cw2: #aaa;
+
+  --speed: 300ms;
+  --ease: cubic-bezier(.19,.7,.6,.99);
 }
 
 .cb0 {

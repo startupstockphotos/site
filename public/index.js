@@ -1466,19 +1466,89 @@ var _preact = _interopRequireDefault(__webpack_require__(0));
 
 var _scouter = __webpack_require__(2);
 
+var _connect = _interopRequireDefault(__webpack_require__(1));
+
 var _App = _interopRequireDefault(__webpack_require__(3));
 
 var _PhotoGrid = _interopRequireDefault(__webpack_require__(16));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/** @jsx preact.h */
+function _instanceof(left, right) { if (right != null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) { return right[Symbol.hasInstance](left); } else { return left instanceof right; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!_instanceof(instance, Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 var path = ':query';
+var component = (0, _connect.default)(function (state) {
+  return {
+    scrolled: state.homeIsScrolled
+  };
+})(
+/*#__PURE__*/
+function (_preact$Component) {
+  _inherits(Home, _preact$Component);
 
-function component(props) {
-  return _preact.default.h(_App.default, null, _preact.default.h(_PhotoGrid.default, null));
-}
+  function Home(props) {
+    var _this;
 
+    _classCallCheck(this, Home);
+
+    _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
+    _this.handleScroll = _this.handleScroll.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Home, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      window.addEventListener('scroll', this.handleScroll);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.props.hydrate({
+        homeIsScrolled: false
+      })();
+      window.removeEventListener('scroll', this.handleScroll);
+    }
+  }, {
+    key: "handleScroll",
+    value: function handleScroll(e) {
+      var _this2 = this;
+
+      requestAnimationFrame(function () {
+        if (window.pageYOffset > 200 && !_this2.props.scrolled) {
+          _this2.props.hydrate({
+            homeIsScrolled: true
+          })();
+        } else if (window.pageYOffset < 200 && _this2.props.scrolled) {
+          _this2.props.hydrate({
+            homeIsScrolled: false
+          })();
+        }
+      });
+    }
+  }, {
+    key: "render",
+    value: function render(props, state) {
+      return _preact.default.h(_App.default, null, _preact.default.h(_PhotoGrid.default, null));
+    }
+  }]);
+
+  return Home;
+}(_preact.default.Component));
 var options = {
   title: function title(state) {
     return (state.query ? "".concat(state.query, " | ") : '') + 'Startup Stock Photos';
@@ -1507,6 +1577,8 @@ exports.default = void 0;
 
 var _preact = _interopRequireDefault(__webpack_require__(0));
 
+var _classnames = _interopRequireDefault(__webpack_require__(20));
+
 var _connect = _interopRequireDefault(__webpack_require__(1));
 
 var _Outer = _interopRequireDefault(__webpack_require__(5));
@@ -1522,13 +1594,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /** @jsx preact.h */
 var _default = (0, _connect.default)(function (state) {
   return {
-    location: state.location
+    location: state.location,
+    scrolled: state.homeIsScrolled
   };
 })(function Nav(_ref) {
   var location = _ref.location,
-      hydrate = _ref.hydrate;
+      hydrate = _ref.hydrate,
+      scrolled = _ref.scrolled;
   return _preact.default.h("span", null, _preact.default.h("header", {
-    className: "nav fix top left right x z1"
+    className: (0, _classnames.default)('nav fix top left right x z1', {
+      'is-scrolled': scrolled
+    })
   }, _preact.default.h("div", {
     className: "nav__inner"
   }, _preact.default.h(_Outer.default, null, _preact.default.h("div", {
@@ -1928,6 +2004,61 @@ function joinRoute(a, b) {
 function cleanLocation(location) {
   return location.replace(window.location.origin, '');
 }
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+  Copyright (c) 2016 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames () {
+		var classes = [];
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === 'string' || argType === 'number') {
+				classes.push(arg);
+			} else if (Array.isArray(arg)) {
+				classes.push(classNames.apply(null, arg));
+			} else if (argType === 'object') {
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(' ');
+	}
+
+	if (typeof module !== 'undefined' && module.exports) {
+		module.exports = classNames;
+	} else if (true) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+			return classNames;
+		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {
+		window.classNames = classNames;
+	}
+}());
+
 
 /***/ })
 /******/ ]);

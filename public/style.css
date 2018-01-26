@@ -285,15 +285,17 @@ em, .i{
     padding:0 1.5em
 }
   }
+.nav.is-scrolled{
+    background:white;
+    -webkit-box-shadow:0 0 10px 15px rgba(0, 0, 0, .1);
+            box-shadow:0 0 10px 15px rgba(0, 0, 0, .1);
+  }
 .nav__inner{
   padding:0.75em 0;
-  background:white;
 }
 @media (min-width: 44em){
 .nav__inner{
-    padding:1.5em 0;
-    -webkit-box-shadow:0 0 10px 15px rgba(0, 0, 0, .1);
-            box-shadow:0 0 10px 15px rgba(0, 0, 0, .1)
+    padding:1.5em 0
 }
   }
 .nav__search{
@@ -317,10 +319,47 @@ em, .i{
       margin-top:0.9em;
       color:#aaa;
       font-size:1.2em;
+      -webkit-transform:translateX(-30px);
+              transform:translateX(-30px);
+      opacity:0;
+      -webkit-transition-property:opacity, -webkit-transform;
+      transition-property:opacity, -webkit-transform;
+      transition-property:transform, opacity;
+      transition-property:transform, opacity, -webkit-transform;
+      -webkit-transition-duration:300ms;
+              transition-duration:300ms;
+      -webkit-transition-timing-function:cubic-bezier(.19,.7,.6,.99);
+              transition-timing-function:cubic-bezier(.19,.7,.6,.99);
     }
+
+    .nav__search .search{
+      -webkit-transform:translateY(-120%);
+              transform:translateY(-120%);
+    }
+      .is-scrolled .nav__search::before{
+        opacity:1;
+        -webkit-transform:translateX(0);
+                transform:translateX(0);
+      }
+      .is-scrolled .nav__search .search{
+        -webkit-transform:translateY(0);
+                transform:translateY(0);
+      }
   }
+.search{
+  -webkit-transition-property:opacity, -webkit-transform;
+  transition-property:opacity, -webkit-transform;
+  transition-property:transform, opacity;
+  transition-property:transform, opacity, -webkit-transform;
+  -webkit-transition-duration:300ms;
+          transition-duration:300ms;
+  -webkit-transition-timing-function:cubic-bezier(.19,.7,.6,.99);
+          transition-timing-function:cubic-bezier(.19,.7,.6,.99);
+  width:100%;
+}
 .search input{
     padding:0.75em 0;
+    width:100%;
   }
 .search input::-webkit-input-placeholder{
       opacity:1;
@@ -379,3 +418,6 @@ em, .i{
     height:70px
 }
   }
+main{
+  min-height:150vh;
+}
