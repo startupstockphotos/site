@@ -1,11 +1,15 @@
 :root {
   --cb0: #000;
   --cb1: #333;
+  --cb2: #999;
   --cw0: #fff;
   --cw1: #eee;
   --cw2: #aaa;
+  --cblue1: #5EA8FF;
 
   --speed: 300ms;
+  --fast: 300ms;
+  --slow: 600ms;
   --ease: cubic-bezier(.19,.7,.6,.99);
 }
 

@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "description": "Site for startupstockphotos.com",
   "scripts": {
-    "dev": "unibundle",
-    "build": "unibundle build",
-    "serve": "nodemon build/server.js",
     "start": "NODE_ENV=production nodemon server.js"
   },
   "repository": {

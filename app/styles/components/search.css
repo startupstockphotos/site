@@ -1,19 +1,26 @@
 .search {
-  transition-property: transform, opacity;
-  transition-duration: var(--speed);
-  transition-timing-function: var(--ease);
-  width: 100%;
+  padding: 80px 0 0 0;
+}
+.search__toggle {
+  button {
+    font-size: 18px;
+    background: transparent;
+    color: var(--cb2);
 
-  input {
-    padding: 0.75em 0;
-    width: 100%;
-
-    &::placeholder {
-      opacity: 1;
+    &.is-selected {
+      color: var(--cb1);
     }
+  }
+}
 
-    @media (min-width: 44em) {
-      padding: 1.5em 0;
-    }
+.search-bar {
+  margin: 30px 0 0 0;
+}
+
+.search-tags {
+  margin: 38px 0 0 0;
+
+  button {
+    margin-right: 15px;
   }
 }

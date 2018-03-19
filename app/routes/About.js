@@ -1,11 +1,8 @@
-/** @jsx preact.h */
-import preact from 'preact'
-import { route } from 'scouter'
+import React from 'react'
+import { route } from 'foil'
 import App from 'app/App.js'
 
-const path = '/about'
-
-function component (props) {
+function About (props) {
   return (
     <App>
       <h1>About</h1>
@@ -13,4 +10,10 @@ function component (props) {
   )
 }
 
-export default route({ path, component })
+export default route({
+  path: '/about',
+  payload: {
+    Component: About,
+    cache: '1d'
+  }
+})

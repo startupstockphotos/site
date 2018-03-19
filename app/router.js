@@ -1,6 +1,5 @@
-/** @jsx preact.h */
-import preact from 'preact'
-import { router, route } from 'scouter'
+import React from 'react'
+import { router, route } from 'foil'
 
 import Home from 'routes/Home.js'
 import About from 'routes/About.js'
@@ -10,6 +9,8 @@ export default router(
   Home,
   route({
     path: '*',
-    component: props => <h1>404</h1>
+    payload: {
+      Component: props => <h1>404</h1>
+    }
   })
 )

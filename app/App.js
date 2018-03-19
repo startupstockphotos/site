@@ -1,12 +1,11 @@
-/** @jsx preact.h */
-import preact from 'preact'
+import React from 'react'
 import Nav from './components/Nav.js'
 
 export default function App ({ children }) {
   return (
-    <main>
+    <div>
       <Nav />
       {children}
-    </main>
+    </div>
   )
 }

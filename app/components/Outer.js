@@ -1,5 +1,4 @@
-/** @jsx preact.h */
-import preact from 'preact'
+import React from 'react'
 
 export default function Outer ({ children }) {
   return (

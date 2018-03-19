@@ -1,13 +1,9 @@
-/** @jsx preact.h */
-import preact from 'preact'
-import connect from 'state/connect.js'
+import React from 'react'
 import Outer from 'components/Outer.js'
 import PhotoCard from 'components/PhotoCard.js'
 
-export default connect(state => ({
-  photos: state.photos
-}))(
-  props => (
+function PhotoGrid (props) {
+  return (
     <Outer>
       <ul className='photo-grid f aic fw'>
         {props.photos.map(p => (
@@ -18,4 +14,6 @@ export default connect(state => ({
       </ul>
     </Outer>
   )
-)
+}
+
+export default PhotoGrid

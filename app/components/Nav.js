@@ -1,46 +1,92 @@
-/** @jsx preact.h */
-import preact from 'preact'
+import React from 'react'
 import cx from 'classnames'
-import connect from 'state/connect'
-import Outer from 'components/Outer.js'
-import Logo from 'components/Logo.js'
-import Link from 'components/Link.js'
-import SearchBar from 'components/SearchBar.js'
+import { init, getBounds } from 'lib/logoHelpers.js'
 
-export default connect(state => ({
-  location: state.location,
-  scrolled: state.homeIsScrolled
-}))(
-  function Nav ({ location, hydrate, scrolled }) {
+class Nav extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      open: false
+    }
+  }
+
+  componentDidMount () {
+    this.stick()
+  }
+
+  stick () {
+    this.sticky = init(this.logo, this.logoBounds)
+  }
+
+  unstick () {
+    this.sticky.destroy()
+  }
+
+  open () {
+    const bounds = getBounds(this.logo)
+    const overlay = getBounds(this.overlay)
+
+    const vh = window.innerHeight
+    const vw = window.innerWidth
+
+    const hyp = Math.sqrt((vh * vh) + (vw * vw))
+    const scaleX = (hyp / overlay.width) * 2
+    const scaleY = (hyp / overlay.height) * 2
+
+    this.overlay.style.opacity = 1
+    this.overlay.style.left = `${bounds.left}px`
+    this.overlay.style.top = `${bounds.top}px`
+    this.overlay.style.transform = `scale(${scaleX}, ${scaleY})`
+
+    setTimeout(() => {
+      this.setState({
+        open: true
+      })
+      this.unstick()
+    }, 600)
+  }
+
+  close () {
+    const bounds = getBounds(this.logo)
+
+    this.overlay.style.left = `${bounds.left}px`
+    this.overlay.style.top = `${bounds.top}px`
+    this.overlay.style.transform = ``
+    setTimeout(() => {
+      this.setState({
+        open: false
+      })
+      this.overlay.style.opacity = 0
+      this.stick()
+    }, 600)
+  }
+
+  toggle () {
+    this.state.open ? this.close() : this.open()
+  }
+
+  render () {
+    const { open } = this.state
+
     return (
-      <span>
-        <header className={cx('nav fix top left right x z1', {
-          'is-scrolled': scrolled
-        })}>
-          <div className='nav__inner'>
-            <Outer>
-              <div className='f jcb aic'>
-                <Link className='nav__logo' href='/'>
-                  <Logo />
-                </Link>
+      <React.Fragment>
+        <div ref={c => { this.overlay = c }} className='nav-overlay fix top left z1' />
 
-                <nav className='f aic jce'>
-                  <Link href='/donate' className='caps h6' style={{ marginRight: '2em' }}>Donate</Link>
-                  <Link href='/about' className='caps h6'>About</Link>
-                </nav>
-              </div>
-            </Outer>
+        <header className={cx('nav f aic jce rel z2')}>
+          <div ref={c => { this.logoBounds = c }} className='logo-bounds abs top left'>
+            <button ref={c => { this.logo = c }} className={cx('logo abs fill ma', {
+              'is-open': open
+            })} onClick={this.toggle.bind(this)} />
           </div>
 
-          <div className='nav__search'>
-            <Outer>
-              <SearchBar />
-            </Outer>
-          </div>
+          <button className={cx('button button--border', {
+            'button--white': open
+          })}>Donate</button>
         </header>
-
-        <div className='header-spacer' />
-      </span>
+      </React.Fragment>
     )
   }
-)
+}
+
+export default Nav
