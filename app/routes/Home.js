@@ -13,6 +13,7 @@ function Home (props, state) {
 export default route({
   path: ':query',
   payload: {
-    Component: Home
+    Component: Home,
+    cache: '1d'
   }
 })

@@ -1,6 +1,5 @@
 require('now-env')
 
-const debug = require('debug')('index')
 const server = require('connect')()
 const router = require('router')()
 const cors = require('cors')
@@ -10,7 +9,7 @@ const helmet = require('helmet')
 const serve = require('serve-static')
 const ms = require('ms')
 const metaTags = require('html-meta-tags')
-const { cache, createCache } = require('./cache.js')
+const cache = require('chunk-cache')
 
 const React = require('react')
 const { Provider } = require('@picostate/react')
@@ -30,16 +29,13 @@ server.use(parser.json())
 server.use(serve('./public'))
 
 router.get('*', (req, res) => {
-  const hit = cache.get(req.originalUrl)
+  const hit = cache(req.originalUrl)
 
   if (hit) {
     res.writeHead(200, { 'Content-Type': 'text/html' })
     res.write(hit)
     res.end()
-    debug(`Served cached response for ${req.originalUrl}`)
     return
-  } else {
-    debug(`Cache miss for ${req.originalUrl}`)
   }
 
   foil.resolve(req.originalUrl, ({ payload, context, redirect }) => {
@@ -57,10 +53,11 @@ router.get('*', (req, res) => {
     let responseStream = res
     if (payload.cache) {
       const maxAge = NODE_ENV === 'production' ? payload.cache : '1m'
-      responseStream = createCache(req.originalUrl, ms(maxAge))
+      responseStream = cache(req.originalUrl, ms(maxAge))
       responseStream.pipe(res)
-      debug(`Caching ${req.originalUrl} for ${maxAge}`)
     }
+
+    res.writeHead(200, { 'Content-Type': 'text/html' })
 
     responseStream.write(`<!doctype html>
       <html>
@@ -69,7 +66,6 @@ router.get('*', (req, res) => {
           <title>${meta.state.title}</title>
           ${headTags}
           ${NODE_ENV === 'production' ? `<link rel='stylesheet' href='/style.css' />` : ''}
-          <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,400i,700" rel="stylesheet"> 
         </head>
         <body>
           <div id='root'>`
