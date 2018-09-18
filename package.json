@@ -1,44 +1,31 @@
 {
-  "name": "site",
+  "name": "ssp-site",
   "version": "0.0.1",
-  "description": "Site for startupstockphotos.com",
+  "main": "index.js",
   "scripts": {
-    "dev": "unibundle",
-    "build": "unibundle build",
-    "serve": "nodemon build/server.js",
-    "start": "NODE_ENV=production nodemon server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/startupstockphotos/site.git"
+    "start": "node index.js",
+    "dev": "concurrently 'npm run watch:server' 'npm run watch:assets'",
+    "watch:server": "nodemon index.js",
+    "watch:assets": "spaghetti scripts/client.js static -w",
+    "build:assets": "spaghetti scripts/client.js static"
   },
   "author": "estrattonbailey",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "dependencies": {
-    "@foil/react": "^1.2.1",
-    "@picostate/react": "^1.1.0",
-    "body-parser": "^1.18.2",
-    "chunk-cache": "0.0.1",
-    "classnames": "^2.2.5",
-    "compression": "^1.7.2",
     "connect": "^3.6.6",
-    "cors": "^2.8.4",
-    "foil": "^1.0.5",
-    "helmet": "^3.11.0",
-    "html-meta-tags": "^1.0.0",
-    "memory-cache": "^0.2.0",
-    "ms": "^2.1.1",
-    "node-fetch": "^1.7.3",
-    "nodemon": "^1.17.2",
-    "now-env": "^3.0.3",
-    "picostate": "^1.3.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "router": "^1.3.2",
+    "foil": "^2.2.2",
+    "module-alias": "^2.1.0",
+    "node-fetch": "^2.2.0",
+    "operator": "^1.1.0",
+    "picoapp": "^2.0.1",
+    "router": "^1.3.3",
     "serve-static": "^1.13.2",
-    "unfetch": "^3.0.0"
+    "svbstrate": "^4.1.0",
+    "unfetch": "^3.1.1"
   },
   "devDependencies": {
-    "unibundle": "0.0.7"
+    "@friendsof/spaghetti": "^0.1.0",
+    "concurrently": "^4.0.1",
+    "nodemon": "^1.18.4"
   }
 }
