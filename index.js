@@ -8,7 +8,7 @@ const { router, route } = require('foil')
 
 const { NOW } = process.env
 
-const api = NOW ? 'https://api.startupphotos.com' : 'http://localhost:3001'
+const api = NOW ? 'https://ssp-api.now.sh' : 'http://localhost:3001'
 
 const routes = [
   route({
@@ -50,6 +50,9 @@ require('connect')()
           const props = Object.assign({ title }, store.state)
 
           res.end(view(props))
+        })
+        .catch(() => {
+          res.end('404')
         })
     })
   })

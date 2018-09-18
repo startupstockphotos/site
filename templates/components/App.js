@@ -1,4 +1,4 @@
-const Search = require('templates/components/search.js')
+const Search = require('templates/components/Search.js')
 
 module.exports = function App (props, children) {
   return `
