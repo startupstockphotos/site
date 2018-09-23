@@ -1,12 +1,17 @@
 import { component } from 'picoapp'
+import morph from 'nanomorph'
+import images from 'scripts/lib/images.js'
 import GridPhoto from 'templates/components/GridPhoto.js'
 
 export default component(({ node, state, actions }) => {
   return {
     onStateChange ({ photos }) {
-      node.innerHTML = photos.reduce((str, photo) => {
+      const next = node.cloneNode()
+      next.innerHTML = photos.reduce((str, photo) => {
         return str += GridPhoto(photo)
       }, '')
+      morph(node, next)
+      images()
     }
   }
 })

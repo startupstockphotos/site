@@ -12,6 +12,50 @@ const api = NOW ? 'https://ssp-api.now.sh' : 'http://localhost:3001'
 
 const routes = [
   route({
+    path: '/about',
+    payload: {
+      title: 'About',
+      view: require('templates/pages/Index.js')
+    }
+  }),
+  route({
+    path: '/photos/:id',
+    payload: {
+      title: 'Startup Stock Photos',
+      view: require('templates/pages/Photo.js'),
+      load ({ context, store }) {
+        const { id } = context.state.params
+
+        return fetch(`${api}/api/v1/photos/${id}`)
+          .then(r => r.json())
+          .then(photo => {
+            store.hydrate({
+              photo
+            })
+          })
+      }
+    }
+  }),
+  route({
+    path: ':query',
+    payload: {
+      title: 'Startup Stock Photos',
+      view: require('templates/pages/Index.js'),
+      load ({ context, store }) {
+        const { query } = context.state.params
+
+        return fetch(`${api}/api/v1/search/${query}`)
+          .then(r => r.json())
+          .then(photos => {
+            store.hydrate({
+              query,
+              photos
+            })
+          })
+      }
+    }
+  }),
+  route({
     path: '/',
     payload: {
       title: 'Startup Stock Photos',
@@ -25,16 +69,10 @@ const routes = [
       }
     }
   }),
-  route({
-    path: '/about',
-    payload: {
-      title: 'About',
-      view: require('templates/pages/Index.js')
-    }
-  })
 ]
 
 require('connect')()
+  .use(require('compression')())
   .use(require('serve-static')('static'))
   .use((req, res) => {
     const url = req.url
@@ -49,9 +87,12 @@ require('connect')()
         .then(() =>  {
           const props = Object.assign({ title }, store.state)
 
+          res.setHeader('Content-Type', 'text/html')
           res.end(view(props))
         })
-        .catch(() => {
+        .catch(e => {
+          console.log(e)
+          res.setHeader('Content-Type', 'text/plain')
           res.end('404')
         })
     })

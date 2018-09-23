@@ -1,19 +1,39 @@
 import { component } from 'picoapp'
 
-export default component(({ node, state, actions }) => {
-  const [ input ] = node.getElementsByTagName('input')
-  const reset = node.getElementsByTagName('button')[0]
+export default component(({ node: form, state, actions }) => {
+  const [ input ] = form.getElementsByTagName('input')
+  const reset = form.getElementsByTagName('button')[0]
 
-  input.addEventListener('keyup', e => {
-    e.target.value ? (
-      actions.search(e.target.value)
-    ) : (
-      actions.resetSearch()
-    )
+  let timeout
+
+  function update () {
+    window.history.replaceState({}, '', input.value || '/')
+    timeout && clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      input.value ? (
+        actions.search(input.value)
+      ) : (
+        actions.resetSearch()
+      )
+    }, 500)
+  }
+
+  input.addEventListener('keyup', update)
+  input.addEventListener('change', update)
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    update()
   })
 
   reset.addEventListener('click', e => {
     input.value = ''
-    actions.resetSearch()
+    update()
+  })
+
+  document.addEventListener('keydown', e => {
+    if (e.metaKey && e.keyCode === 83) {
+      e.preventDefault()
+      input.focus()
+    }
   })
 })

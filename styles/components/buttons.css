@@ -1,0 +1,31 @@
+button.button {
+  padding: 0.3em 1.4em 0.4em 1.2em;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: white;
+  border: 1px solid var(--blue);
+  border-radius: 100px;
+  background: var(--blue);
+  transition-property: background, color, border-color;
+  transition-duration: var(--fast);
+  transition-timing-function: var(--ease);
+
+  &:not(.button--outline) {
+    &:hover {
+      background: var(--black);
+      border-color: var(--black);
+      color: white;
+    }
+  }
+
+  &.button--outline {
+    color: var(--blue);
+    background: transparent;
+
+    &:hover {
+      background: var(--black);
+      border-color: var(--black);
+      color: white;
+    }
+  }
+}

@@ -8,9 +8,20 @@
 :root {
   --fast: 200ms;
   --ease: ease-in-out;
-  --black: #0A0A3A;
-  --dark-purple: #1F1F84;
-  --purple: #C750FF;
-  --light-purple: #DB8EFF;
-  --gradient-purple: linear-gradient(to bottom, #7890FF, #BDC7FF);
+  --black: #213841;
+  --blue: #00B1FF;
+  --gray: #CFD9DD;
+}
+
+.cb {
+  color: var(--black);
+}
+.cw {
+  color: white;
+}
+.cg {
+  color: var(--gray);
+}
+.ctheme {
+  color: var(--blue);
 }

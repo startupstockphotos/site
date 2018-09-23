@@ -12,16 +12,21 @@
   "author": "estrattonbailey",
   "license": "MIT",
   "dependencies": {
+    "compression": "^1.7.3",
     "connect": "^3.6.6",
     "foil": "^2.2.2",
     "module-alias": "^2.1.0",
+    "nanoclass": "0.0.1",
+    "nanomorph": "^5.1.3",
     "node-fetch": "^2.2.0",
-    "operator": "^1.1.0",
+    "operator": "^1.1.1",
     "picoapp": "^2.0.1",
     "router": "^1.3.3",
     "serve-static": "^1.13.2",
     "svbstrate": "^4.1.0",
-    "unfetch": "^3.1.1"
+    "tickl": "0.0.1",
+    "unfetch": "^3.1.1",
+    "vsbl": "^1.0.0"
   },
   "devDependencies": {
     "@friendsof/spaghetti": "^0.1.0",

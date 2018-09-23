@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,400i,700');
 
 html, body {
-  color: #000;
+  color: var(--black);
   font-family: 'Roboto Mono', -apple-system, system-ui, BlinkMacSystemFont, sans-serif;
   font-size: 100%;
   line-height: 1.7;
