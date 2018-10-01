@@ -7,7 +7,13 @@
 
 :root {
   --fast: 200ms;
+  --200: 200ms;
+  --400: 400ms;
+  --600: 600ms;
+  --800: 800ms;
+  --1000: 1000ms;
   --ease: ease-in-out;
+  --cubic: cubic-bezier(.06,.83,.1,1);
   --black: #213841;
   --blue: #00B1FF;
   --gray: #CFD9DD;

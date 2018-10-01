@@ -46,11 +46,8 @@ const routes = [
 
         return fetch(`${api}/api/v1/search/${query}`)
           .then(r => r.json())
-          .then(photos => {
-            store.hydrate({
-              query,
-              photos
-            })
+          .then(res => {
+            store.hydrate(res)
           })
       }
     }
@@ -63,8 +60,8 @@ const routes = [
       load ({ context, store }) {
         return fetch(`${api}/api/v1/photos`)
           .then(r => r.json())
-          .then(photos => {
-            store.hydrate({ photos })
+          .then(res => {
+            store.hydrate(res)
           })
       }
     }

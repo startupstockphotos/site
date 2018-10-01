@@ -5,7 +5,7 @@ import GridPhoto from 'templates/components/GridPhoto.js'
 
 export default component(({ node, state, actions }) => {
   return {
-    onStateChange ({ photos }) {
+    onStateChange ({ photos, pages, page, hits }) {
       const next = node.cloneNode()
       next.innerHTML = photos.reduce((str, photo) => {
         return str += GridPhoto(photo)

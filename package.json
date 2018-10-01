@@ -20,13 +20,15 @@
     "nanomorph": "^5.1.3",
     "node-fetch": "^2.2.0",
     "operator": "^1.1.1",
+    "overunder": "^3.0.2",
     "picoapp": "^2.0.1",
     "router": "^1.3.3",
     "serve-static": "^1.13.2",
     "svbstrate": "^4.1.0",
     "tickl": "0.0.1",
     "unfetch": "^3.1.1",
-    "vsbl": "^1.0.0"
+    "vsbl": "^1.1.0",
+    "w2t": "0.0.2"
   },
   "devDependencies": {
     "@friendsof/spaghetti": "^0.1.0",
